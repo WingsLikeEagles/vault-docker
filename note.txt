@@ -30,8 +30,9 @@ Invoke-WebRequest -Uri "http://localhost:8200" -Headers $headers -UseBasicParsin
 
 
 Links:
+https://hub.docker.com/_/vault/?tab=description
+https://blog.ruanbekker.com/blog/2019/05/06/setup-hashicorp-vault-server-on-docker-and-cli-guide/
 https://www.vaultproject.io/docs/auth/userpass.html#configuration
 https://stackoverflow.com/questions/63068001/hashicorp-vault-no-handler-for-route-error-despite-secrets-engine-being-enabled
 https://www.vaultproject.io/api-docs/auth/token
-https://blog.ruanbekker.com/blog/2019/05/06/setup-hashicorp-vault-server-on-docker-and-cli-guide/
 

@@ -1,0 +1,29 @@
+Notes on getting HashiCrop's Vault working in Docker... 
+
+# Pulling a local copy of Vault to a local registry:
+Done with having a local Docker registery to reduce bandwidth pulling images off the network with local volume mapped in for persistance.
+docker pull registry:2.7.1
+
+docker pull vault:1.6.0
+docker tag vault:1.6.0 localhost:5000/vault:1.6.0
+docker push localhost:5000/vault:1.6.0
+
+# Running Vault from local registry (this is Dev, not for production as it is unsafe using these options):
+docker run --rm --cap-add=IPC_LOCK --name=dev-vault -p 8200:8200 -p 8201:8201 -it localhost:5000/vault:1.6.0
+
+The output will have an Unseal Key and Root Token.  The Root Token is needed to login to the Web UI for the first time.
+
+The Vault Web UI can be viewed using the Root Token at http://localhost:8200/
+
+
+Windows PowerShell web request:
+$header = "X-Vault-Token"
+
+$token = "YourSuperSecretTokenGenerestedByVault"
+$tokenBytes = [System.Text.Encoding]::ASCII.GetBytes($token)
+$tokenBase64 = [System.Convert]::ToBase64String($tokenBytes)
+
+$headers = @{ $header = $tokenBase64 }
+
+Invoke-WebRequest -Uri "http://localhost:8200" -Headers $headers -UseBasicParsing -WebSession $vaultSess
+
